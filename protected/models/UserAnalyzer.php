@@ -10,6 +10,7 @@ class UserAnalyzer {
 //图案加工、工艺加工，袖口处理	领边处理，腰部处理	A型、X型、H型
 //`contour` char(4) NOT NULL DEFAULT 0 COMMENT '廓形 H型	A型	V型	X型	O型	S型',
 //`specific` tinyint(4) NOT NULL DEFAULT 0 COMMENT '细节 1.图案花边	2.工艺加工	3.领边处理	4.腰部处理	5.袖口处理	6.裤边处理',
+    //脸型
     static $featureList = array(
         //曲线形
         '1' => array(
@@ -27,6 +28,7 @@ class UserAnalyzer {
             'specific' => array(4, 5)
         ),
     );
+    //体型
     static $somatotypeList = array(
         // 1沙漏
         //	A型、X型、S型
@@ -54,7 +56,7 @@ class UserAnalyzer {
             'contour' => array('A', 'X', 'H'),
         ),
     );
-//`complexion` tinyint(4) NOT NULL default 0 COMMENT '肤色 1白 2偏白略黄 3黄 4偏黑',
+    //肤色
     static $complexionList = array(
         '1' => array(
             'color' => array(31, 30, 32, 11, 10, 12, 21, 20, 22, 41, 40, 42, 110, 100, 80, 121, 120, 122, 141, 140, 142, 61, 60, 130),
@@ -73,11 +75,89 @@ class UserAnalyzer {
             'style' => array(12,21,22,23,32)
         ),
     );
+    //风格
+    static $styleList = array(
 
-    
+        '11'=>array(
+            'color'=>array(11,10,31,30,32,21,20,22,41,40,42,80,121,120,122,141,140,142,61,60,130),
+        ),
+        '12'=>array(
+            'color'=>array(11,10,12,31,30,32,21,20,22,41,40,42,110,100,80,121,120,122,141,140,142,61,60,62,130,70,91,90,92),
+        ),
+        '13'=>array(
+            'color'=>array(10,12,30,32,40,42,60,62,50,52,51,20,22,70,92,110,100),
+        ),
+        '21'=>array(
+            'color'=>array(70,80,91,90,92,140,142,100,110,42,12,32,10),
+        ),
+        '22'=>array(
+            'color'=>array(10,12,50,52,70,90,92,110,100),
+        ),
+        '23'=>array(
+            'color'=>array(12,30,32,40,42,50,52,70,80,91,90,92,140,142,130,120,122),
+        ),
+        '31'=>array(
+            'color'=>array(10,12,30,32,40,42,60,62,140,142,141,52,51,22,70,92,110,100),
+        ),
+        '32'=>array(
+            'color'=>array(80,141,140,142,12,42,91,90,92,31),
+        ),
+        '33'=>array(
+            'color'=>array(10,11,31,30,32,41,40,42,61,60,62,140,142,141,52,51,22,92,110,100,80),
+        ),
+        '41'=>array(
+            'color'=>array(70,80,90,91,92,120,121,122,10,32,141,140,142,110,100,40,50,52,130),
+        ),
+        '42'=>array(
+            'color'=>array(10,11,12,20,21,22,30,31,32,40,41,42,50,51,52,60,61,62,70,80,90,91,92,100,110,120,121,122,130),
+        ),
+    );
 
-    public function analysis($user) {
-        $user->feature;
-//  `complexion` tinyint(4) NOT NULL default 0 COMMENT '肤色 1白 2偏白略黄 3黄 4偏黑',
+    /**
+     * 根据肤色获取风格
+     * @param $complexion
+     * @return bool
+     */
+    public static function getStyleByComplexion($complexion) {
+        if(array_key_exists($complexion,self::$complexionList)) {
+            $style = self::$complexionList[$complexion];
+            return $style;
+        }
+        return false;
+    }
+
+    /**
+     * 根据用户获取廓形
+     * @param $user
+     * @return array
+     */
+    public function getContourByUser($user) {
+        if(array_key_exists($user->feature,self::$featureList)) {
+            $contour = self::$featureList[$user->feature];
+        }
+        if(array_key_exists($user->somatotype,self::$somatotypeList)) {
+            $contour1 = self::$somatotypeList[$user->somatotype];
+        }
+        $ret = array_intersect($contour,$contour1);
+        return $ret;
+    }
+
+    /**
+     * 根据用户及用户选取的风格获取颜色
+     * @param $user
+     * @param $style
+     * @return array
+     */
+    public function getUserColorByStyle($user,$style) {
+        $color = array();
+        $color1 = array();
+        if(array_key_exists($user->complexion,self::$complexionList)) {
+            $color = self::$complexionList[$user->complexion];
+        }
+        if(array_key_exists($style,self::$styleList)) {
+            $color1 = self::$styleList[$style];
+        }
+        $ret = array_intersect($color,$color1);
+        return $ret;
     }
 }
