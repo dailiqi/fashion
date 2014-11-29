@@ -45,7 +45,7 @@ CREATE TABLE `user_info` (
   `stature` char(10) NOT NULL default "" COMMENT '身高 传递float值',
   `weight` char(10) NOT NULL  default "" COMMENT '体重 传递float值',
   `feature` tinyint(4) NOT NULL default 0 COMMENT '脸型 1曲线形 2中间形 3直线形',
-  `somatotype` tinyint(4) NOT NULL default 0 COMMENT '体型 1沙漏 2V型 3梨子 4H 5S',
+  `somatotype` tinyint(4) NOT NULL default 0 COMMENT '体型 1沙漏 2V型 3梨子 4H 5S 6干瘦',
   `complexion` tinyint(4) NOT NULL default 0 COMMENT '肤色 1白 2偏白略黄 3黄 4偏黑',
   `styles` VARCHAR(1024) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
@@ -109,7 +109,23 @@ CREATE TABLE `mix` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+DROP TABLE IF EXISTS `style`;
+CREATE TABLE `style` (
+  `code` tiny(4) NOT NULL DEFAULT 0 '递增Id',
+  `style` VARCHAR(128) NOT NULL DEFAULT '',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into color values(11,'甜美');
+insert into color values(12,'轻熟');
+insert into color values(13,'学院');
+insert into color values(21,'帅气');
+insert into color values(22,'朋克');
+insert into color values(23,'BF');
+insert into color values(31,'复古');
+insert into color values(32,'文艺');
+insert into color values(33,'森女');
+insert into color values(41,'通勤');
+insert into color values(42,'运动');
 
 
 DROP TABLE IF EXISTS `color`;
