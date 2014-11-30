@@ -74,7 +74,7 @@ class UserAnalyzer {
         ),
     );
 
-    
+
 
     public function analysis($user) {
         $user->feature;
