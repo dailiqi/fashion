@@ -1,7 +1,6 @@
 <?php
 define('ROOT', dirname(dirname(__FILE__)));
-require_once(ROOT . '/conf/GlobalConfig.php');
-define('BASE_DIR', ROOT . "/app/fashion/protected");
+define('BASE_DIR', ROOT);
 
 class Config_Fashion {
     public static $config = array(

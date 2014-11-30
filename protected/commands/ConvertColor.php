@@ -63,7 +63,13 @@ class ConvertColor {
         }
         echo implode(',', $codeList);
     }
-
+    public static function values() {
+        foreach(self::$colorHash as $color) {
+            $tmp[] = $color;
+        }
+        echo implode(',', $tmp);
+    }
 }
 
-ConvertColor::test('红、绿、蓝、银色、黑色、粉色、灰色、深蓝色、金色、浅紫色、橘色、杏色、浅杏色');
+//ConvertColor::test('红色、深红、黄色、深黄、绿色、深绿、紫色、深紫色、蓝色、深蓝色、浅蓝色、橘色、深橘色、黑色、深灰色、金色、银色');
+ConvertColor::values();
