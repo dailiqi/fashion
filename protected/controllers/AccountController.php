@@ -5,6 +5,7 @@
  */
 class AccountController extends CController {
 
+
     public function actionLogin() {
         $page=new LoginPage();
         $ret = $page->execute();
