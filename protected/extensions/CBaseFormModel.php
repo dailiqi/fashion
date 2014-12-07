@@ -1,5 +1,5 @@
 <?php
-class CBaseFormModel extends CFormModel{
+abstract class CBaseFormModel extends CFormModel{
     public $post_array=array();
     public $get_array=array();
     public $cookie_array=array();
@@ -40,4 +40,9 @@ class CBaseFormModel extends CFormModel{
             throw new Exception($message,1);
         }
     }
+    public function execute() {
+        $this->build_data();
+        return $this->_execute();
+    }
+    abstract protected function _execute();
 }

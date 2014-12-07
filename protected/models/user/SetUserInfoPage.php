@@ -18,7 +18,7 @@ class SetUserInfoPage extends CBaseFormModel {
         "complexion",
     );
 
-    public function execute() {
+    public function _execute() {
 
         try {
             if(!LoginPage::$user){

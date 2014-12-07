@@ -7,12 +7,10 @@
  * Time: 上午12:36
  */
 class LoginPage extends CBaseFormModel {
-    static $user;
     public $username;
     public $password;
-
+    static $user;
     public function __construct() {
-        $this->accountService = new AccountService();
     }
 
     public $get_array = array(
@@ -24,7 +22,7 @@ class LoginPage extends CBaseFormModel {
             array("username, password", "required")
         );
     }
-    public function execute() {
+    public function _execute() {
 
         try {
             $user = User::model()->find('user_name=:username', array('username'=>$this->username));
@@ -36,7 +34,6 @@ class LoginPage extends CBaseFormModel {
             }
             return array("error_no" => 0, 'data' => array('serial'=>$user->serial));
         } catch(Exception $e) {
-            Yii_Log::warning(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
             return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
         }
     }

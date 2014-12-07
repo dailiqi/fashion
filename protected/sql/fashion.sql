@@ -22,21 +22,10 @@ CREATE TABLE `user_follow` (
   `is_delete` tinyint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `index_user_id` (`user_id`),
-  INDEX `index_follower_id` (`follower_id`),
+  INDEX `index_follower_id` (`follower_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `user_collect`;
-CREATE TABLE `user_collect` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
-  `user_id` int(10) NOT NULL COMMENT '被关注人ID',
-  `good_id` int(10) NOT NULL Comment '收藏商品Id',
-  `is_delete` tinyint(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  INDEX `index_user_id` (`user_id`),
-  INDEX `index_follower_id` (`follower_id`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 评论表 包括单品评论 、搭配评论
 
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
@@ -59,7 +48,7 @@ CREATE TABLE `cloth` (
   `time` int(10) NOT NULL COMMENT '创建时间',
   `url` VARCHAR(2048) NOT NULL DEFAULT 0 COMMENT '存储URL',
   `color_id` int(10) NOT NULl DEFAULT 0 COMMENT '颜色id，对应颜色表',
-  `fabric_id` int(10) NOT NULL DEFAULT 0 COMMENT '面料，对应面料表',--TODO
+  `fabric_id` int(10) NOT NULL DEFAULT 0 COMMENT '面料，对应面料表',
   `fabric_sub_id` int(10) NOT NULL DEFAULT 0 COMMENT '面料，对应面料表',
   `contour` char(4) NOT NULL DEFAULT 0 COMMENT '廓形 H型	A型	V型	X型	O型	S型',
   `specific` tinyint(4) NOT NULL DEFAULT 0 COMMENT '细节 1.图案花边	2.工艺加工	3.领边处理	4.腰部处理	5.袖口处理	6.裤边处理',
@@ -90,7 +79,6 @@ CREATE TABLE `cloth_ext` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 搭配
 DROP TABLE IF EXISTS `mix`;
 CREATE TABLE `mix` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
@@ -111,26 +99,26 @@ CREATE TABLE `mix` (
 
 DROP TABLE IF EXISTS `style`;
 CREATE TABLE `style` (
-  `code` tiny(4) NOT NULL DEFAULT 0 '递增Id',
+  `code` tinyint(4) NOT NULL DEFAULT 0 COMMENT '递增Id',
   `style` VARCHAR(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-insert into color values(11,'甜美');
-insert into color values(12,'轻熟');
-insert into color values(13,'学院');
-insert into color values(21,'帅气');
-insert into color values(22,'朋克');
-insert into color values(23,'BF');
-insert into color values(31,'复古');
-insert into color values(32,'文艺');
-insert into color values(33,'森女');
-insert into color values(41,'通勤');
-insert into color values(42,'运动');
+insert into style values(11,'甜美');
+insert into style values(12,'轻熟');
+insert into style values(13,'学院');
+insert into style values(21,'帅气');
+insert into style values(22,'朋克');
+insert into style values(23,'BF');
+insert into style values(31,'复古');
+insert into style values(32,'文艺');
+insert into style values(33,'森女');
+insert into style values(41,'通勤');
+insert into style values(42,'运动');
 
 
 DROP TABLE IF EXISTS `color`;
 CREATE TABLE `color` (
-  `code` tiny(4) NOT NULL DEFAULT 0 '递增Id',
+  `code` tinyint(4) NOT NULL DEFAULT 0 COMMENT '递增Id',
   `color` VARCHAR(128) NOT NULL DEFAULT '',
   `RGB` VARCHAR(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`code`)
@@ -170,7 +158,7 @@ insert into color values(142,'深杏','');
 
 DROP TABLE IF EXISTS `cloth_type`;
 CREATE TABLE `cloth_type` (
-  `id` int(10) NOT NULL 'Id',
+  `id` int(10) NOT NULL,
   `type` VARCHAR(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -182,7 +170,7 @@ INSERT INTO cloth_type values(5,'饰品');
 
 DROP TABLE IF EXISTS `cloth_sub_type`;
 CREATE TABLE `cloth_sub_type` (
-  `id` int(10) NOT NULL 'Id',
+  `id` int(10) NOT NULL  comment 'Id',
   `type_id` int(10) NOT NULL DEFAULT 0,
   `type` VARCHAR(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
@@ -205,3 +193,17 @@ INSERT INTO cloth_sub_type values(52,5,'颈饰');
 INSERT INTO cloth_sub_type values(53,5,'耳饰');
 INSERT INTO cloth_sub_type values(54,5,'手饰');
 INSERT INTO cloth_sub_type values(55,5,'其他');
+
+
+-- DROP TABLE IF EXISTS `user_collect`;
+-- CREATE TABLE `user_collect` (
+--   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
+--   `user_id` int(10) NOT NULL COMMENT '被关注人ID',
+--   `good_id` int(10) NOT NULL Comment '收藏商品Id',
+--   `is_delete` tinyint(10) NOT NULL DEFAULT 0,
+--   PRIMARY KEY (`id`),
+--   INDEX `index_user_id` (`user_id`),
+--   INDEX `index_follower_id` (`follower_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 评论表 包括单品评论 、搭配评论

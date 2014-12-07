@@ -16,10 +16,10 @@ class RegisterPage extends CBaseFormModel {
 
     public function rules() {
         return array(
-            array("username, password", "required")
+            array("username, password", "required"),
         );
     }
-    public function execute() {
+    public function _execute() {
 
         try {
             $user = User::model()->find('user_name=:username', array('username'=>$this->username));
@@ -34,7 +34,6 @@ class RegisterPage extends CBaseFormModel {
             $user->save();
             return array("error_no" => 0, 'data' => array('serial'=>$user->serial));
         } catch(Exception $e) {
-            Yii_Log::warning(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
             return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
         }
     }
