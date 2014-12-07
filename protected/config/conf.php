@@ -1,7 +1,7 @@
 <?php
 define('ROOT', dirname(dirname(__FILE__)));
 define('BASE_DIR', ROOT);
-
+define('IMG_PATH', dirname(ROOT) . '/webroot/');
 class Config_Fashion {
     public static $config = array(
         "defaultController" => "index",

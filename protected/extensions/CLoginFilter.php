@@ -7,9 +7,9 @@ class CLoginFilter extends CFilter {
         if($_GET['serial']) {
             $param['serial'] = $_GET['serial'];
         }
-//        if(isset($_POST['serial'])) {
-//            $param['serial'] = $_POST['serial'];
-//        }
+        if($_POST['serial']) {
+            $param['serial'] = $_POST['serial'];
+        }
         try {
             $user = User::model()->find('serial=:serial', array('serial' => $param['serial']));
             if($user) {

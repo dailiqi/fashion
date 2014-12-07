@@ -16,7 +16,7 @@ class AddClothPage extends CBaseFormModel {
     public $cloth_sub_type;
 
 
-    public $get_array = array(
+    public $post_array = array(
         "color_id", "fabric_id",
         "fabric_sub_id", "contour",
         "specific", "cloth_type",
@@ -28,34 +28,41 @@ class AddClothPage extends CBaseFormModel {
         );
     }
 
-    public function execute() {
+    public function _execute() {
         try {
             if($_FILES['file']['error'] > 0) {
                 return array("error_no" => 1, 'errror_message' => $_FILES["file"]["error"]);
             } else {
-                //move_uploaded_file($_FILES['file']['tmp_name'], ROOT . '/data/uploadcredit/'.time() . ' _'.$_FILES['file']['name']);
                 $url = '/static/' . LoginPage::$user->id . '/' .
                     md5($_FILES['file']['type'] . $_FILES['file']['size'] . time()) .
                     '.' . $_FILES['file']['type'];
-                $imgPath = ROOT . $url;
+                $imgPath = IMG_PATH . $url;
                 move_uploaded_file($_FILES['file']['tmp_name'], $imgPath);
                 $cloth = new Cloth();
                 $cloth->user_id = LoginPage::$user->id;
                 $cloth->time = time();
                 $cloth->url = $url;
-                $cloth->color_id = $this->cloth_id;
-                $cloth->fabric_id = $this->fabric_id;
-                $cloth->fabric_sub_id = $this->fabric_sub_id;
-                $cloth->contour = $this->contour;
-                $cloth->specific = $this->specific;
-                $cloth->cloth_type = $this->cloth_type;
-                $cloth->cloth_sub_type = $this->cloth_sub_type;
+                if($this->color_id)
+                    $cloth->color_id = $this->color_id;
+                if($this->fabric_id)
+                    $cloth->fabric_id = $this->fabric_id;
+                if($this->fabric_sub_id)
+                    $cloth->fabric_sub_id = $this->fabric_sub_id;
+                if($this->contour)
+                    $cloth->contour = $this->contour;
+                if($this->specific)
+                    $cloth->specific = $this->specific;
+                if($this->cloth_type)
+                    $cloth->cloth_type = $this->cloth_type;
+                if($this->cloth_sub_type)
+                    $cloth->cloth_sub_type = $this->cloth_sub_type;
                 $cloth->save();
                 $cloth_id = $cloth->id;
                 $ext = new ClothExt();
-                $ext->user_id = $cloth_id;
+                $ext->id = $cloth_id;
+                $ext->user_id = $cloth;
                 $ext->use_count = 0;
-
+                $ext->save();
 //                `id` int(10) NOT NULL,
 //  `user_id` int(10) NOT NULL DEFAULT 0,
 //  `use_count` int(10) NOT NULL DEFAULT 0,
@@ -71,11 +78,9 @@ class AddClothPage extends CBaseFormModel {
 //  `is_commute` tinyint(4) NOT NULL DEFAULT 0,
 //  `is_sport` tinyint(4) NOT NULL DEFAULT 0,
 
-                return array("error_no" => 0, 'data' => array('serial' => $user->serial));
+                return array("error_no" => 0, 'data' => array('success'));
             }
         } catch(Exception $e) {
-            //TODO 添加日志
-            Yii_Log::warning(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
             return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
         }
     }

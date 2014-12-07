@@ -5,14 +5,28 @@
  */
 class ClothController extends CController {
 
-    public function addCloth() {
-        $page=new AddClothPage();
+    public function actionAddClothPage() {
+
+    }
+    public function actionAddCloth() {
+        $page = new AddClothPage();
         $ret = $page->execute();
         echo CJSON::encode($ret);
     }
 
+    /**
+     * 获取衣服选项
+     */
+    public function getClothOption() {
+
+    }
+
+    public function getClothList() {
+
+    }
+
     public function actionError() {
-        if($error=Yii::app()->errorHandler->error){
+        if($error = Yii::app()->errorHandler->error) {
             echo $error['message'];
         }
     }
