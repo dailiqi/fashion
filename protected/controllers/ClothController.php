@@ -11,6 +11,17 @@ class ClothController extends CController {
     public function actionAddCloth() {
         $page = new AddClothPage();
         $ret = $page->execute();
+        header('Content-Type: application/json');
+        echo CJSON::encode($ret);
+    }
+
+    /**
+     * 查询衣服列表
+     */
+    public function actionSearchCloth() {
+        $page = new SearchClothPage();
+        $ret = $page->execute();
+        header('Content-Type: application/json');
         echo CJSON::encode($ret);
     }
 
@@ -22,14 +33,14 @@ class ClothController extends CController {
     }
 
     public function getClothList() {
-
+//        $page = new Se
     }
 
-    public function actionError() {
-        if($error = Yii::app()->errorHandler->error) {
-            echo $error['message'];
-        }
-    }
+//    public function actionError() {
+//        if($error = Yii::app()->errorHandler->error) {
+//            echo $error['message'];
+//        }
+//    }
 
     public function filters() {
         return array(

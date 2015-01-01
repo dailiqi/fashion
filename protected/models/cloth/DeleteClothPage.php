@@ -22,7 +22,7 @@ class DeleteClothPage extends CBaseFormModel {
         );
     }
 
-    public function execute() {
+    protected function _execute() {
         try {
             $cloth = Cloth::model()->find('cloth_id=:cloth_id and user_id=:user_id',
                 array('user_id' => LoginPage::$user->id, 'cloth_id' => $this->cloth_id));

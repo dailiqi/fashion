@@ -8,4 +8,6 @@ require_once(dirname(dirname(__FILE__)).'/protected/config/conf.php');
 $config = Config_Fashion::$config;
 require_once(dirname(dirname(__FILE__)) . '/yii/framework/yii.php');
 // create a Web application instance and run
-Yii::createWebApplication($config)->run();
+require_once(dirname(dirname(__FILE__)) . '/protected/base/WebApp.php');
+//Yii::createWebApplication($config)->run();
+Yii::createApplication('WebApp', $config)->run();

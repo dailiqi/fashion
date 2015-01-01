@@ -10,6 +10,9 @@ class CLoginFilter extends CFilter {
         if($_POST['serial']) {
             $param['serial'] = $_POST['serial'];
         }
+        if(!$param['serial']) {
+            throw new Exception('未能获取用户登录信息。', 1);
+        }
         try {
             $user = User::model()->find('serial=:serial', array('serial' => $param['serial']));
             if($user) {

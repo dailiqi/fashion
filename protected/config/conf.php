@@ -10,8 +10,10 @@ class Config_Fashion {
             'application.controllers.*',
             'application.models.*',
             'application.models.cloth.*',
-            'application.models.dao.*',
             'application.models.user.*',
+            'application.models.mix.*',
+
+            'application.models.dao.*',
             'application.components.*',
             'application.extensions.*',
         ),

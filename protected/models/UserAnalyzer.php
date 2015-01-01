@@ -120,7 +120,7 @@ class UserAnalyzer {
      */
     public static function getStyleByComplexion($complexion) {
         if(array_key_exists($complexion,self::$complexionList)) {
-            $style = self::$complexionList[$complexion];
+            $style = self::$complexionList[$complexion]['style'];
             return $style;
         }
         return false;

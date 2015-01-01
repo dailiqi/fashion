@@ -33,15 +33,20 @@ class AddClothPage extends CBaseFormModel {
             if($_FILES['file']['error'] > 0) {
                 return array("error_no" => 1, 'errror_message' => $_FILES["file"]["error"]);
             } else {
-                $url = '/static/' . LoginPage::$user->id . '/' .
+                $url = 'static/' . LoginPage::$user->id . '/' .
                     md5($_FILES['file']['type'] . $_FILES['file']['size'] . time()) .
-                    '.' . $_FILES['file']['type'];
+                    '.jpg';
                 $imgPath = IMG_PATH . $url;
                 move_uploaded_file($_FILES['file']['tmp_name'], $imgPath);
+                $img = imagecreatefromjpeg($imgPath);
+                $x = imagesx($img);
+                $y = imagesy($img);
                 $cloth = new Cloth();
                 $cloth->user_id = LoginPage::$user->id;
                 $cloth->time = time();
                 $cloth->url = $url;
+                $cloth->x = $x;
+                $cloth->y = $y;
                 if($this->color_id)
                     $cloth->color_id = $this->color_id;
                 if($this->fabric_id)
@@ -56,6 +61,7 @@ class AddClothPage extends CBaseFormModel {
                     $cloth->cloth_type = $this->cloth_type;
                 if($this->cloth_sub_type)
                     $cloth->cloth_sub_type = $this->cloth_sub_type;
+
                 $cloth->save();
                 $cloth_id = $cloth->id;
                 $ext = new ClothExt();
@@ -78,7 +84,7 @@ class AddClothPage extends CBaseFormModel {
 //  `is_commute` tinyint(4) NOT NULL DEFAULT 0,
 //  `is_sport` tinyint(4) NOT NULL DEFAULT 0,
 
-                return array("error_no" => 0, 'data' => array('success'));
+                return array("error_no" => 0, 'file' => $_FILES, 'img_path' => $imgPath, 'data' => json_decode(CJSON::encode($cloth), true));
             }
         } catch(Exception $e) {
             return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());

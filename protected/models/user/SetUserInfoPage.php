@@ -21,14 +21,16 @@ class SetUserInfoPage extends CBaseFormModel {
     public function _execute() {
 
         try {
-            if(!LoginPage::$user){
+            if(!LoginPage::$user) {
                 throw new Exception('用户信息错误', 10001);
             }
 
-            $userInfo = UserInfo::model()->find('user_id=:user_id',array('user_id'=>LoginPage::$user->id));
+            $userInfo = UserInfo::model()->find('user_id=:user_id', array('user_id' => LoginPage::$user->id));
             if(!$userInfo) {
                 $userInfo = new UserInfo();
             }
+            $userInfo->id = LoginPage::$user->id;
+            $userInfo->user_id = LoginPage::$user->id;
             if(isset($this->stature)) {
                 $userInfo->stature = $this->stature;
             }
@@ -47,7 +49,7 @@ class SetUserInfoPage extends CBaseFormModel {
             $userInfo->save();
             return array("error_no" => 0, 'data' => 'success');
         } catch(Exception $e) {
-            Yii_Log::warning(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
+            Yii::log(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
             return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
         }
     }

@@ -178,7 +178,7 @@ class Yii_Log
             $format_wf = $format;
 
             $log_conf = array(
-                'level'         => intval($g_log_conf['level']),
+                'level' => intval(16),
                 'auto_rotate'   => true,
                 'log_file'      => $log_file,
                 'format'        => $format,
@@ -408,26 +408,30 @@ class Yii_Log
         }
         return $fmtstr;
     }
-    public function getLogString($format) {
-        $md5val = md5($format);
-        $func = "_bd_log_$md5val";
-        if (function_exists($func)) {
-            return $func();
-        }
-		$dataPath = self::getDataPath();
-        $filename = $dataPath . '/log/'.$md5val.'.php';
-        if (!file_exists($filename)) {
-            $tmp_filename = $filename . '.' . posix_getpid() . '.' . rand();
-            if (!is_dir($dataPath . '/log')) {
-                @mkdir($dataPath . '/log');
-            }
-            file_put_contents($tmp_filename, $this->parseFormat($format));
-            rename($tmp_filename, $filename);
-        }
-        include_once($filename);
-        $str = $func();
+//    public function getLogString($format) {
+//        return '' . Yii_Log::$current_instance->current_log_level . ': '
+//        . strftime('%y-%m-%d %H:%M:%S') .
+//        ' [' . Yii_Log::$current_instance->current_file . ':' . Yii_Log::$current_instance->current_line .
+//        '] errno[' . Yii_Log::$current_instance->current_err_no .
+//        '] logId[' . Yii_Log::genLogID() . '] uri['
+//        . (isset($_SERVER['REQUEST_URI'])? $_SERVER['REQUEST_URI'] : '') .
+//        '] user[' . ((defined('CLIENT_IP') ? CLIENT_IP: Yii_Log::getClientIp()) . '] refer[' .
+//            (isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER'] : '') . '] cookie[' .
+//            (isset($_SERVER['HTTP_COOKIE'])? $_SERVER['HTTP_COOKIE'] : '') . '] ' .
+//            Yii_Log::$current_instance->get_str_args() . ' ' .
+//            Yii_Log::$current_instance->current_err_msg . '' . "\n");
+//    }
 
-        return $str;
+    public function getLogString($format) {
+        $____user____ = LoginPage::$user;
+        return '' . Yii_Log::$current_instance->current_log_level .
+        ': ' . strftime('%y-%m-%d %H:%M:%S') . ' [' . Yii_Log::$current_instance->current_file .
+        ':' . Yii_Log::$current_instance->current_line . '] errno[' .
+        Yii_Log::$current_instance->current_err_no . '] logId[' .
+        Yii_Log::genLogID() . '] uri[' .
+        (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') .
+        '] user[' . ((defined('CLIENT_IP') ? CLIENT_IP : Yii_Log::getClientIp()) . ' ' . $____user____['id'] . ' ' . $____user____['user_name']) . '] refer[' . (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '')
+        . '] cookie[' . (isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '') . '] ' . Yii_Log::$current_instance->get_str_args() . ' ' . Yii_Log::$current_instance->current_err_msg . '' . "\n";
     }
     // parse format and generate code
     public function parseFormat($format) {
