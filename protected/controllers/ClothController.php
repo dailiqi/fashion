@@ -3,7 +3,7 @@
 /**
  * SiteController is the default controller to handle user requests.
  */
-class ClothController extends CController {
+class ClothController extends BaseController {
 
     public function actionAddClothPage() {
 
@@ -11,8 +11,7 @@ class ClothController extends CController {
     public function actionAddCloth() {
         $page = new AddClothPage();
         $ret = $page->execute();
-        header('Content-Type: application/json');
-        echo CJSON::encode($ret);
+        $this->json($ret);
     }
 
     /**
@@ -21,8 +20,7 @@ class ClothController extends CController {
     public function actionSearchCloth() {
         $page = new SearchClothPage();
         $ret = $page->execute();
-        header('Content-Type: application/json');
-        echo CJSON::encode($ret);
+        $this->json($ret);
     }
 
     /**
@@ -31,16 +29,6 @@ class ClothController extends CController {
     public function getClothOption() {
 
     }
-
-    public function getClothList() {
-//        $page = new Se
-    }
-
-//    public function actionError() {
-//        if($error = Yii::app()->errorHandler->error) {
-//            echo $error['message'];
-//        }
-//    }
 
     public function filters() {
         return array(

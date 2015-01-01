@@ -236,3 +236,15 @@ CREATE TABLE `user_mix_collect` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 评论表 包括单品评论 、搭配评论
+DROP TABLE IF EXISTS `mix_comment`;
+CREATE TABLE `mix_comment` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
+  `user_id` int(10) NOT NULL COMMENT '用户ID',
+  `mix_id` int(10) NOT NULL Comment '收藏搭配Id',
+  `time` int(10) NOT NULL DEFAULT 0 comment "创建时间",
+  `comment` VARCHAR(2048) NOT NULL DEFAULT "" comment "评论内容",
+  `is_delete` tinyint(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `index_user_id` (`user_id`),
+  INDEX `index_follower_id` (`follower_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
