@@ -19,19 +19,25 @@ class MixController extends BaseController {
     }
 
     public function actionGetMixComment() {
-        $page = new SearchUserMixPage();
+        $page = new GetMixCommentPage();
         $ret = $page->execute();
         $this->json($ret);
     }
 
-    public function actionCommentMix() {
+    public function actionAddMixComment() {
         $page = new AddMixCommentPage();
+        $ret = $page->execute();
+        $this->json($ret);
+    }
+
+    public function actionAddMixCollect() {
+        $page = new AddMixCollectPage();
         $ret = $page->execute();
         $this->json($ret);
     }
     public function filters() {
         return array(
-            array('application.extensions.CLoginFilter - getGeekList')
+            array('application.extensions.CLoginFilter - getGeekList,GetMixComment')
         );
     }
 }

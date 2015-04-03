@@ -214,25 +214,25 @@ INSERT INTO cloth_sub_type values(55,5,'其他');
 DROP TABLE IF EXISTS `user_collect`;
 CREATE TABLE `user_collect` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
-  `user_id` int(10) NOT NULL COMMENT '用户ID',
-  `collect_user_id` int(10) NOT NULL COMMENT '被收藏的商品所属用户id',
-  `good_id` int(10) NOT NULL Comment '收藏商品Id',
-  `is_delete` tinyint(10) NOT NULL DEFAULT 0,
+  `user_id` int(10) NOT NULL DEFAULT 0  COMMENT '用户ID',
+  `collect_user_id` int(10) NOT NULL DEFAULT 0  COMMENT '被收藏的商品所属用户id',
+  `good_id` int(10) NOT NULL DEFAULT 0  Comment '收藏商品Id',
+  `time` int(10) NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `is_delete` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  INDEX `index_user_id` (`user_id`),
-  INDEX `index_follower_id` (`follower_id`)
+  INDEX `index_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_mix_collect`;
 CREATE TABLE `user_mix_collect` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
-  `user_id` int(10) NOT NULL COMMENT '用户ID',
-  `collect_user_id` int(10) NOT NULL COMMENT '被收藏的搭配所属用户id',
-  `mix_id` int(10) NOT NULL Comment '收藏搭配Id',
-  `is_delete` tinyint(10) NOT NULL DEFAULT 0,
+  `user_id` int(10) NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `collect_user_id` int(10) NOT NULL DEFAULT 0 COMMENT '被收藏的搭配所属用户id',
+  `mix_id` int(10) NOT NULL DEFAULT 0 Comment '收藏搭配Id',
+  `time` int(10) NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `is_delete` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  INDEX `index_user_id` (`user_id`),
-  INDEX `index_follower_id` (`follower_id`)
+  INDEX `index_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 评论表 包括单品评论 、搭配评论
@@ -246,5 +246,5 @@ CREATE TABLE `mix_comment` (
   `is_delete` tinyint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `index_user_id` (`user_id`),
-  INDEX `index_follower_id` (`follower_id`)
+  INDEX `index_mix_id` (`mix_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

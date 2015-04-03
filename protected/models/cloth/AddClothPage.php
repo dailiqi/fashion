@@ -16,7 +16,7 @@ class AddClothPage extends CBaseFormModel {
     public $cloth_sub_type;
 
 
-    public $post_array = array(
+    public $get_array = array(
         "color_id", "fabric_id",
         "fabric_sub_id", "contour",
         "specific", "cloth_type",

@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Shanghai');
-error_reporting(10000);
+ini_set('display_errors','On');
+error_reporting(E_ALL);
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);

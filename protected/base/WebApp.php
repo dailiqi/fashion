@@ -8,8 +8,8 @@ class WebApp extends CWebApplication {
 
     public function print_err() {
         if(YII_ENABLE_ERROR_HANDLER && ($error = error_get_last())) {
-            $this->handleError($error['type'], $error['message'], $error['file'], $error['line']);
-            die();
+//            $this->handleError($error['type'], $error['message'], $error['file'], $error['line']);
+//            die();
         }
     }
 }
