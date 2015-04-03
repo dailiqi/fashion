@@ -135,7 +135,7 @@ class Yii_Log
 	 * @date 2012/07/31 17:15:59
 	**/
     public static function getLogPath(){
-        self::$strLogPath =ROOT.'/log/';
+        self::$strLogPath =LOG_PATH.'/log/';
         return self::$strLogPath;
 
     }

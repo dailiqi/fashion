@@ -11,9 +11,6 @@ class LoginPage extends CBaseFormModel {
     public $password;
     static $user;
 
-    public function __construct() {
-    }
-
     public $get_array = array(
         "username", "password",
     );
@@ -24,7 +21,7 @@ class LoginPage extends CBaseFormModel {
         );
     }
 
-    public function _execute() {
+    protected function _execute() {
 
         $user = User::model()->find('user_name=:username', array('username' => $this->username));
         if(!$user) {

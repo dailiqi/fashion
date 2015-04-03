@@ -1,5 +1,6 @@
 <?php
 define('ROOT', dirname(dirname(__FILE__)));
+define('LOG_PATH', dirname(dirname(dirname(ROOT))));
 define('BASE_DIR', ROOT);
 define('IMG_PATH', dirname(ROOT) . '/webroot/');
 class Config_Fashion {
@@ -9,6 +10,7 @@ class Config_Fashion {
         'import' => array(
             'application.controllers.*',
             'application.models.*',
+            'application.models.account.*',
             'application.models.cloth.*',
             'application.models.user.*',
             'application.models.mix.*',
