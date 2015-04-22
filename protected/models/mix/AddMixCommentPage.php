@@ -14,17 +14,13 @@ class AddMixCommentPage extends CBaseFormModel {
     );
 
     protected function _execute() {
-        try {
-            $mixComment = new MixComment();
-            $mixComment->mix_id = intval($this->mix_id);
-            $mixComment->user_id = LoginPage::$user->id;
-            $mixComment->comment = $this->comment;
-            $mixComment->time = time();
-            $mixComment->save();
+        $mixComment = new MixComment();
+        $mixComment->mix_id = intval($this->mix_id);
+        $mixComment->user_id = LoginPage::$user->id;
+        $mixComment->comment = $this->comment;
+        $mixComment->time = time();
+        $mixComment->save();
 
-            return array("error_no" => 0, 'data' => 'success');
-        } catch(Exception $e) {
-            return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
-        }
+        return 'success';
     }
 }

@@ -20,38 +20,33 @@ class SetUserInfoPage extends CBaseFormModel {
 
     public function _execute() {
 
-        try {
-            if(!LoginPage::$user) {
-                throw new Exception('用户信息错误', 10001);
-            }
-
-            $userInfo = UserInfo::model()->find('user_id=:user_id', array('user_id' => LoginPage::$user->id));
-            if(!$userInfo) {
-                $userInfo = new UserInfo();
-            }
-            $userInfo->id = LoginPage::$user->id;
-            $userInfo->user_id = LoginPage::$user->id;
-            if(isset($this->stature)) {
-                $userInfo->stature = $this->stature;
-            }
-            if(isset($this->weight)) {
-                $userInfo->weight = $this->weight;
-            }
-            if(isset($this->feature)) {
-                $userInfo->feature = $this->feature;
-            }
-            if(isset($this->somatotype)) {
-                $userInfo->somatotype = $this->somatotype;
-            }
-            if(isset($this->complexion)) {
-                $userInfo->complexion = $this->complexion;
-            }
-            $userInfo->save();
-            return array("error_no" => 0, 'data' => 'success');
-        } catch(Exception $e) {
-            Yii::log(array('error_no' => $e->getCode(), 'error_message' => $e->getMessage()));
-            return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
+        if(!LoginPage::$user) {
+            throw new Exception('用户信息错误', 10001);
         }
+
+        $userInfo = UserInfo::model()->find('user_id=:user_id', array('user_id' => LoginPage::$user->id));
+        if(!$userInfo) {
+            $userInfo = new UserInfo();
+        }
+        $userInfo->id = LoginPage::$user->id;
+        $userInfo->user_id = LoginPage::$user->id;
+        if(isset($this->stature)) {
+            $userInfo->stature = $this->stature;
+        }
+        if(isset($this->weight)) {
+            $userInfo->weight = $this->weight;
+        }
+        if(isset($this->feature)) {
+            $userInfo->feature = $this->feature;
+        }
+        if(isset($this->somatotype)) {
+            $userInfo->somatotype = $this->somatotype;
+        }
+        if(isset($this->complexion)) {
+            $userInfo->complexion = $this->complexion;
+        }
+        $userInfo->save();
+        return 'success';
     }
 
 } 

@@ -14,21 +14,18 @@ class GetMixCommentPage extends CBaseFormModel {
     );
 
     protected function _execute() {
-        try {
-            $sql = 'select mix_comment.id as id ,' .
-                'mix_comment.comment as comment, ' .
-                'mix_comment.user_id as user_id,' .
-                'user.user_name as user_name,' .
-                'mix_comment.time as time' .
-                ' from mix_comment,user where mix_comment.mix_id=' . intval($this->mix_id) .
-                ' and mix_comment.user_id=user.id ' .
-                ' order by time desc limit ' . intval($this->page_num) * 10 . ', 10 ';
-            $connection = Yii::app()->db;   // 假设你已经建立了一个 "db" 连接
-            $command = $connection->createCommand($sql);
-            $list = $command->queryAll();      // 查询并返回结果中的所有行
-            return array("error_no" => 0, 'data' => $list);
-        } catch(Exception $e) {
-            return array('error_no' => $e->getCode(), 'error_message' => $e->getMessage());
-        }
+        $sql = 'select mix_comment.id as id ,' .
+            'mix_comment.comment as comment, ' .
+            'mix_comment.user_id as user_id,' .
+            'user.user_name as user_name,' .
+            'mix_comment.time as time' .
+            ' from mix_comment,user where mix_comment.mix_id=' . intval($this->mix_id) .
+            ' and mix_comment.user_id=user.id ' .
+            ' order by time desc limit ' . intval($this->page_num) * 10 . ', 10 ';
+        $connection = Yii::app()->db;   // 假设你已经建立了一个 "db" 连接
+        $command = $connection->createCommand($sql);
+        $list = $command->queryAll();      // 查询并返回结果中的所有行
+        return $list;
+
     }
 }
