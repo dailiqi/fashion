@@ -41,12 +41,12 @@ class SearchCollectClothPage extends CBaseFormModel {
         $criteria->offset = ($this->page_num - 1) * 10;
 
         $list = UserCollect::model()->findAll($criteria);
-        $mix = array();
-        foreach($list as $one) {
-            $mix[] = Cloth::model()->findByPk($one->mix_id);
-        }
+//        $mix = array();
+//        foreach($list as $one) {
+//            $mix[] = Cloth::model()->findByPk($one->mix_id);
+//        }
 
-        return array('page_num' => $this->page_num, 'count' => $count, 'list' => $mix);
+        return array('page_num' => $this->page_num, 'count' => $count, 'list' => $list);
 
     }
 }

@@ -40,6 +40,11 @@ class ClothController extends BaseController {
         $ret = $page->execute();
         $this->json($ret);
     }
+    public function actionDeleteCollectCloth() {
+        $page = new DeleteCollectClothPage();
+        $ret = $page->execute();
+        $this->json($ret);
+    }
     /**
      * 获取衣服选项
      */

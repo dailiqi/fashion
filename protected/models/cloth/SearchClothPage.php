@@ -54,7 +54,7 @@ class SearchClothPage extends CBaseFormModel {
                 $criteria->params['contour'] = $this->contour;
             }
             if($this->specific) {
-                $criteria->addCondition('specific=:specific');
+                $criteria->addCondition('`specific`=:specific');
                 $criteria->params['specific'] = $this->specific;
             }
             if($this->cloth_type) {
