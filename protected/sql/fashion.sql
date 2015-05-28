@@ -31,7 +31,7 @@ CREATE TABLE `user_open_summary` (
   `user_id` int(10) NOT NULL default 0 COMMENT '用户ID',
   `cloth_count` int(10) NOT NULL DEFAULT 0 comment '衣服数',
   `cloth_1_count` int(10) NOT NULL DEFAULT 0 comment '上装',
-  `cloth_2_count` int(10) NOT NULL DEFAULT 0 comment '下装',
+  `cloth_2_count` int(10) NOT NULL DEFAULT 0 comment '下装',m
   `cloth_3_count` int(10) NOT NULL DEFAULT 0 comment '鞋',
   `cloth_4_count` int(10) NOT NULL DEFAULT 0 comment '包',
   `cloth_5_count` int(10) NOT NULL DEFAULT 0 comment '饰品',
@@ -102,12 +102,12 @@ CREATE TABLE `mix` (
   `bottom` int(10) NOT NULL DEFAULT 0,
   `shoe` int(10) NOT NULL DEFAULT 0,
   `bag` int(10) NOT NULL DEFAULT 0,
-  `ornament` int(10) NOT NULL DEFAULT 0,
+  `ornament` int(10) NOT NULL DEFAULT 0 comment "装饰",
   `understanding` VARCHAR(2048) NOT NULL DEFAULT '',
-  `info` BLOB,
-  `occasion` int(10) NOT NULL DEFAULT 0,
-  `style` int(10) NOT NULL DEFAULT 0,
-  `feeling` int(10) NOT NULL DEFAULT 0,
+  `info` BLOB comment "信息",
+  `occasion` int(10) NOT NULL DEFAULT 0 comment "场合",
+  `style` int(10) NOT NULL DEFAULT 0 comment "风格",
+  `feeling` int(10) NOT NULL DEFAULT 0 comment "心情",
   `time` int(10) NOT NULL DEFAULT 0,
   `for_date` int(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
@@ -211,18 +211,21 @@ INSERT INTO cloth_sub_type values(54,5,'手饰');
 INSERT INTO cloth_sub_type values(55,5,'其他');
 
 
+-- 收藏单品表
 DROP TABLE IF EXISTS `user_collect`;
 CREATE TABLE `user_collect` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
   `user_id` int(10) NOT NULL DEFAULT 0  COMMENT '用户ID',
   `collect_user_id` int(10) NOT NULL DEFAULT 0  COMMENT '被收藏的商品所属用户id',
   `good_id` int(10) NOT NULL DEFAULT 0  Comment '收藏商品Id',
+  `type` int(10) NOT NULL DEFAULT 0  Comment '收藏商品类型',
   `time` int(10) NOT NULL DEFAULT 0 COMMENT '创建时间',
   `is_delete` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `index_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- 收藏搭配表
 DROP TABLE IF EXISTS `user_mix_collect`;
 CREATE TABLE `user_mix_collect` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
@@ -236,6 +239,21 @@ CREATE TABLE `user_mix_collect` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 评论表 包括单品评论 、搭配评论
+-- 衣服评论
+DROP TABLE IF EXISTS `cloth_comment`;
+CREATE TABLE `cloth_comment` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',
+  `user_id` int(10) NOT NULL COMMENT '用户ID',
+  `cloth_id` int(10) NOT NULL Comment '收藏搭配Id',
+  `time` int(10) NOT NULL DEFAULT 0 comment "创建时间",
+  `comment` VARCHAR(2048) NOT NULL DEFAULT "" comment "评论内容",
+  `is_delete` tinyint(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `index_user_id` (`user_id`),
+  INDEX `index_cloth_id` (`cloth_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 搭配评论
 DROP TABLE IF EXISTS `mix_comment`;
 CREATE TABLE `mix_comment` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '递增Id',

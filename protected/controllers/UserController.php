@@ -36,11 +36,7 @@ class UserController extends BaseController {
         $this->json($ret);
     }
 
-    public function actionAddCollect() {
-        $page = new AddCollectPage();
-        $ret = $page->execute();
-        $this->json($ret);
-    }
+
 
     public function filters() {
         return array(

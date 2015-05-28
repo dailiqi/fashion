@@ -24,6 +24,23 @@ class ClothController extends BaseController {
     }
 
     /**
+     * 收藏衣服
+     */
+    public function actionAddCollect() {
+        $page = new AddCollectPage();
+        $ret = $page->execute();
+        $this->json($ret);
+    }
+
+    /**
+     * 获取收藏衣服
+     */
+    public function actionSearchCollectCloth() {
+        $page = new SearchCollectClothPage();
+        $ret = $page->execute();
+        $this->json($ret);
+    }
+    /**
      * 获取衣服选项
      */
     public function getClothOption() {

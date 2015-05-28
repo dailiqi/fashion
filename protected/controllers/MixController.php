@@ -18,6 +18,11 @@ class MixController extends BaseController {
         $this->json($ret);
     }
 
+    public function actionSearchUserCollectMix() {
+        $page = new SearchUserCollectMixPage();
+        $ret = $page->execute();
+        $this->json($ret);
+    }
     public function actionGetMixComment() {
         $page = new GetMixCommentPage();
         $ret = $page->execute();
@@ -35,6 +40,15 @@ class MixController extends BaseController {
         $ret = $page->execute();
         $this->json($ret);
     }
+
+    /**
+     * 摇一摇 获取随即的搭配
+     */
+    public function actionRandomMix() {
+        $page = new RandomMixPage();
+        $this->json($page->execute());
+    }
+
     public function filters() {
         return array(
             array('application.extensions.CLoginFilter - getGeekList,GetMixComment')

@@ -14,7 +14,7 @@ class Config_Fashion {
             'application.models.cloth.*',
             'application.models.user.*',
             'application.models.mix.*',
-
+            'application.models.follow.*',
             'application.models.dao.*',
             'application.components.*',
             'application.extensions.*',

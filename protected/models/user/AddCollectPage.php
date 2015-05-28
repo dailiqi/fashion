@@ -20,7 +20,8 @@ class AddCollectPage extends CBaseFormModel {
         if(LoginPage::$user->id == $this->collect_user_id) {
             throw new Exception('不能关注自己', 50001);
         }
-        if(!Cloth::model()->find('user_id=:user_id and id=:id', array('user_id' => $this->collect_user_id, 'id' => $this->good_id))) {
+        $cloth = Cloth::model()->find('user_id=:user_id and id=:id', array('user_id' => $this->collect_user_id, 'id' => $this->good_id));
+        if(!$cloth) {
             throw new Exception('未找到关注商品', 50002);
         }
         $uc = UserCollect::model()->find('user_id=:user_id and collect_user_id=:collect_user_id and good_id=:good_id',
@@ -30,6 +31,7 @@ class AddCollectPage extends CBaseFormModel {
             $uc->collect_user_id = $this->collect_user_id;
             $uc->good_id = $this->good_id;
             $uc->user_id = LoginPage::$user->id;
+            $uc->type = $cloth->type;
             $uc->time = time();
             $uc->save();
         }
