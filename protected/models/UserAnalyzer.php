@@ -80,48 +80,59 @@ class UserAnalyzer {
 
         '11'=>array(
             'color'=>array(11,10,31,30,32,21,20,22,41,40,42,80,121,120,122,141,140,142,61,60,130),
-            'contour'=>array('A','X')
+            'contour'=>array('A','X'),
+            'value'=>'sweety'
         ),
         '12'=>array(
             'color'=>array(11,10,12,31,30,32,21,20,22,41,40,42,110,100,80,121,120,122,141,140,142,61,60,62,130,70,91,90,92),
-            'contour'=>array('O','H','V','A')
+            'contour'=>array('O','H','V','A'),
+            'value'=>'lightripe'
         ),
         '13'=>array(
             'color'=>array(10,12,30,32,40,42,60,62,50,52,51,20,22,70,92,110,100),
-            'contour'=>array('H','V')
+            'contour'=>array('H','V'),
+            'value'=>'preppy'
         ),
         '21'=>array(
             'color'=>array(70,80,91,90,92,140,142,100,110,42,12,32,10),
-            'contour'=>array('H','V')
+            'contour'=>array('H','V'),
+            'value'=>'handsome'
         ),
         '22'=>array(
             'color'=>array(10,12,50,52,70,90,92,110,100),
-            'contour'=>array('H','A')
+            'contour'=>array('H','A'),
+            'value'=>'punk'
         ),
         '23'=>array(
             'color'=>array(12,30,32,40,42,50,52,70,80,91,90,92,140,142,130,120,122),
-            'contour'=>array('H','A','X','O')
+            'contour'=>array('H','A','X','O'),
+            'value'=>'bf'
         ),
         '31'=>array(
             'color'=>array(10,12,30,32,40,42,60,62,140,142,141,52,51,22,70,92,110,100),
-            'contour'=>array('H','A')
+            'contour'=>array('H','A'),
+            'value'=>'classic'
         ),
         '32'=>array(
             'color'=>array(80,141,140,142,12,42,91,90,92,31),
-            'contour'=>array('H','S','O')
+            'contour'=>array('H','S','O'),
+            'value'=>'art'
 
         ),
         '33'=>array(
             'color'=>array(10,11,31,30,32,41,40,42,61,60,62,140,142,141,52,51,22,92,110,100,80),
-            'contour'=>array('A','H','S','X')
+            'contour'=>array('A','H','S','X'),
+            'value'=>'morigirl'
         ),
         '41'=>array(
             'color'=>array(70,80,90,91,92,120,121,122,10,32,141,140,142,110,100,40,50,52,130),
-            'contour'=>array('A','S','X')
+            'contour'=>array('A','S','X'),
+            'value'=>'commute'
         ),
         '42'=>array(
             'color'=>array(10,11,12,20,21,22,30,31,32,40,41,42,50,51,52,60,61,62,70,80,90,91,92,100,110,120,121,122,130),
-            'contour'=>array('A','H','X')
+            'contour'=>array('A','H','X'),
+            'value'=>'sport'
         ),
     );
 
@@ -174,11 +185,16 @@ class UserAnalyzer {
     }
 
     /**
-     * 根据衣服获取风格列表
-     * @param $user
-     * @param $color
      */
-    public function getStyleByColor($cloth) {
-
+    public static function getStyleByCloth($cloth) {
+        $styleList =array();
+        foreach(self::$styleList as $key=>$one) {
+            if(in_array($cloth['color'],$one['color'])) {
+                if(in_array($cloth['contour'],$one['contour'])) {
+                    $styleList[] = array($key=>$one['value']);
+                }
+            }
+        }
+        return $styleList;
     }
 }

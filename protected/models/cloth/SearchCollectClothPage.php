@@ -26,7 +26,6 @@ class SearchCollectClothPage extends CBaseFormModel {
             $criteria->params['user_id'] = LoginPage::$user->id;
         }
 
-
         if($this->type) {
             $criteria->addCondition('type=:type');
             $criteria->params['type'] = $this->type;
@@ -41,12 +40,10 @@ class SearchCollectClothPage extends CBaseFormModel {
         $criteria->offset = ($this->page_num - 1) * 10;
 
         $list = UserCollect::model()->findAll($criteria);
-//        $mix = array();
-//        foreach($list as $one) {
-//            $mix[] = Cloth::model()->findByPk($one->mix_id);
-//        }
-
-        return array('page_num' => $this->page_num, 'count' => $count, 'list' => $list);
-
+        $cloth = array();
+        foreach($list as $one) {
+            $cloth[] = Cloth::model()->findByPk($one->good_id);
+        }
+        return array('page_num' => $this->page_num, 'count' => $count, 'list' => $cloth);
     }
 }
